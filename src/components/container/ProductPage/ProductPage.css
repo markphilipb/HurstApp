@@ -1,0 +1,11 @@
+.product.container{
+    margin: 0 auto;
+    margin-bottom: 5%;
+
+}
+
+.details-action ul {
+    list-style-type: none;
+    padding: 0;
+}
+
