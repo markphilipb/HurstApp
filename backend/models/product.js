@@ -7,7 +7,12 @@ const product = new Schema({
     name: String,
     description: String,
     price: Number,
-    image: String
+    image: String,
+    countInStock: Number,
+    countSmall: Number,
+    countMedium: Number,
+    countLarge: Number,
+    countXL: Number
     });
 
 module.exports = mongoose.model('Product', product);

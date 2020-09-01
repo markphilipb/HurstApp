@@ -4,14 +4,16 @@ import Store from './components/container/Store/Store';
 import About from './components/container/About/About';
 import Cart from './components/container/Cart/Cart';
 import ProductPage from './components/container/ProductPage/ProductPage';
+import SigninPage from './components/container/Signin/Signin';
 
 export default (
     <Switch>
         <Route exact path='/' component={Store} />
         <Route path='/about' component={About} />
         <Route path='/store' component={Store} />
-        <Route path='/cart' component={Cart} />
+        <Route path='/cart/:_id?' component={Cart} />
         <Route path='/product/:_id' component={ProductPage} />
+        <Route path='/signin' component={SigninPage} />
         {/* <Route path='/admin' component={Admin} /> */}
     </Switch>
 )
