@@ -7,29 +7,27 @@ import { Link } from 'react-router-dom';
 
 function ProductPage(props) {
     const [product, setProduct] = useState({});
-    const [qty, setQty] = useState(1);
+    // const [qty, setQty] = useState(1);
     const [size, setSize] = useState("S")
-
 
     useEffect(() => {
         const fetchData = async () => {
             const {data} = await axios.get("/api/products/" + props.match.params._id);
             setProduct(data.product);
-            console.log(data.product);
         }
         fetchData();
         return () => {
 
         };
-    }, []);
+    }, [props.match.params._id]);
 
     const handleAddToCart = () => {
-        props.history.push("/cart/" + props.match.params._id + "?qty=" + qty);
+        props.history.push("/cart/" + props.match.params._id + "?size=" + size);
     }
 
 
 
-    return (
+    return ( 
         <div className="container">
             <div className="row">
             <div>
@@ -38,7 +36,7 @@ function ProductPage(props) {
                 <div className="col-lg-9">
                 <div className="product container">
                     <div className="card mt-4">
-                        <img className="card-img-top img-fluid" src="http://placehold.it/900x400" alt="" height="900px" width="1000px"></img>
+                        <img className="card-img-top img-fluid" src={product.image} alt="" height="900px" width="1000px"></img>
                         <div className="card-body">
                             <h3 className="card-title">{product.name}</h3>
                             <h4>{product.price}</h4>
@@ -46,10 +44,10 @@ function ProductPage(props) {
                             <div className="details-action">
                                 <ul>
                                     <li>
-                                        Qty: <select value={qty} onChange={(e) => setQty(e.target.value)}>
+                                        {/* Qty: <select value={qty} onChange={(e) => setQty(e.target.value)}>
                                             {[...Array(product.countInStock).keys()].map(x =>
                                                 <option key={x + 1}>{x + 1}</option>)}
-                                        </select>
+                                        </select> */}
                                         Size: <select value={size} onChange={(e) => setSize(e.target.value)}>
                                             {product.countSmall>0 ? <option>S</option>
                                             : <option>Out of stock!</option>}

@@ -19,5 +19,8 @@ module.exports = {
             console.log('product--------------', product);
             res.status(200).json({product});
         })
+    },
+    decreaseQuantity(req, res) {
+        let bulkOps = req.body;
     }
 }

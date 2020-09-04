@@ -1,7 +1,28 @@
 const User = require('../models/user');
+const Product = require('../models/product');
+
 ///import axios to do axios call .
 const axios = require('axios');
 module.exports = {
+    // updateInventory(req, res) {
+    //     const { id } = req.params;
+    //     //Destruct the update data from the req.body,
+    //     // also add picture to destruct from req.body ;------------------------------
+    //     const { countInStock, countSmall, countMedium, countLarge, countXL } = req.body;
+    //     //Find the product, and update it's properties
+    //     Product.findById(id).exec((err, product) => {
+    //         if(err) console.log('Updated Product-----------------', err);
+    //         product.countInStock = countInStock - 1;
+    //         product.countSmall = countSmall;
+    //         product.countMedium = countMedium;
+    //         product.countLarge = countLarge;
+    //         product.countXL = countXL;
+    //         //Save the product with updated data.
+    //         product.save();
+    //         //THen send back the data, just for testing purposes.
+    //         res.status(200).json({product});
+    //     })
+    // }, 
     readUserData(req, res) {
       //Get the session, for update the reducer.
       res.status(200).json({user: req.session.user});  
@@ -27,7 +48,7 @@ module.exports = {
             //Now return a axios get retrieving the user information usiing the access token.
             return axios.get(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/userinfo?access_token=${accessToken}`).then(userDataResponse => {
                 //Destruct the  data from  from auth0
-                const { name, nickname, email, picture, sub } = userDataResponse.data;
+                const { name, email, sub } = userDataResponse.data;
                 console.log('user data--------', userDataResponse.data);
                 // res.status(200).json({message: 'mEssages'})
                 User.findOne({auth0_id: sub}, (err, user) => {
@@ -37,14 +58,12 @@ module.exports = {
                     if(!user) { 
                         //Create a new user. 
                         let newUser = new User({
-                            name: name,
+                            // name: name,
                             email: email,
-                            username: nickname,
-                            profile_picture: picture,
                             auth0_id: sub,
                             //For now set it to true, then after you login set it to false, so other users are not considered the admin.
                             // is_admin: true 
-                            is_admin: false
+                            isAdmin: false
                         });
                         //Assign the user to the session.
                         req.session.user = newUser;

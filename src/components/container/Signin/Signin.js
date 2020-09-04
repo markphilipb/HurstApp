@@ -1,20 +1,20 @@
 import React from 'react';
-import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import './SigninPage.css';
-import { Link } from 'react-router-dom';
-import { signin } from '../../../actions/userActions';
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 
 function SigninPage(props) {
     
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const userSignin = useSelector(state=>state.userSignin);
     const { loading, userInfo, error} = userSignin;
-    const dispatch = useDispatch();
+
+    const { isAuthenticated } = useAuth0();
+    const { loginWithRedirect } = useAuth0();
+    const { logout } = useAuth0();
 
 
     useEffect(() => {
@@ -25,11 +25,12 @@ function SigninPage(props) {
         return () => {
 
         };
-    }, [userInfo]);
+    }, [props.history, userInfo]);
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(signin(email, password));
+        // dispatch(signin(email, password)
+        // loginWithRedirect();
     }
 
 
@@ -45,18 +46,18 @@ function SigninPage(props) {
                     </div>
 
                     <form onSubmit={submitHandler}>
-                        <input type="text" id="email" className="fadeIn second" name="email" placeholder="email" onChange={(e) => setEmail(e.target.value)}></input>
-                        <input type="text" id="password" className="fadeIn second" name="email" placeholder="password" onChange={(e) => setPassword(e.target.value)}></input>
-                        <input type="submit" className="fadeIn fourth" value="Log In"></input>
-                    </form>
-
-                    <div id="formFooter">
-                        <a className="underlineHover" href="#">Forgot Password?</a>
-                    </div>
+                        {isAuthenticated ? 
+                        <input onClick={() => logout({ returnTo: window.location.origin })} type="submit" className="fadeIn fourth" value="Log Out"></input>
+                        :
+                        <input onClick={() => loginWithRedirect()} type="submit" className="fadeIn fourth" value="Log In"></input>
+                        }
+                        </form>
+                    
                 </div>
             </div>
         </div>
-    )
+    ) 
+
 }
 
 export default SigninPage;

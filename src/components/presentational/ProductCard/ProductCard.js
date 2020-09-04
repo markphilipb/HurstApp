@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 
 //Don't forget to pass props to a stateless component as a argument.
 const ProductCard = (props) => {
-    const { _id, name, price, description } = props;
+    const { _id, name, price, image, description } = props;
     
     return (
             <div className="col-lg-4 col-md-6 mb-4">
                 <div className="card h-100">
                   <Link to={'/product/'+ _id}>
-                    <img className="card-img-top" src="http://placehold.it/700x400" alt=""></img>
+                    <img className="card-img-top" src={image} alt=""></img>
                   </Link>
                         <div className="card-body">
                             <h4 className="card-title">

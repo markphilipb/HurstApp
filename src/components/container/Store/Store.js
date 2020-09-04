@@ -3,10 +3,10 @@ import axios from 'axios';
 import ProductCard from '../../presentational/ProductCard/ProductCard';
 import Loader from '../../presentational/Loader/Loader';
 import './Store.css';
+import { withAuth0 } from "@auth0/auth0-react";
 
 
-
-export default class Store extends Component {
+export class Store extends Component {
     
     constructor() {
         super();
@@ -24,12 +24,15 @@ export default class Store extends Component {
     }
 
     render() {
-        //Destruct the products, loading from state.
         const { products, loading } = this.state;
-        //If it is done loading return html else return the loading indicator.
+        const { isAuthenticated } = this.props.auth0;
+
         if(!loading) {
             return (
                 <div className='home container'>
+                    { isAuthenticated && <div>
+                        <a href="/productform">New Product</a>
+                    </div> }
                     <div className='row'>
                         {/* If hte products have data return products else return nothing using terinary statement */}
                         {products.length ? products.map(product => <ProductCard key={product._id} {...product} />) : null}
@@ -42,3 +45,5 @@ export default class Store extends Component {
     }
 
 }
+
+export default withAuth0(Store);

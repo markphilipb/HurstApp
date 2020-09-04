@@ -12,6 +12,34 @@ const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
 
+const jwt = require('express-jwt');
+const jwtAuthz = require('express-jwt-authz');
+const jwksRsa = require('jwks-rsa');
+
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY_TEST);
+
+
+const checkJwt = jwt({
+    secret: jwksRsa.expressJwtSecret({
+      cache: true,
+      rateLimit: true,
+      jwksRequestsPerMinute: 5,
+      jwksUri: 'https://hurstlimited.us.auth0.com/.well-known/jwks.json'
+    }),
+  
+    audience: 'https://hurstapi/api',
+    issuer: 'https://hurstlimited.us.auth0.com/',
+    algorithms: ['RS256']
+  });
+//   app.use(checkJwt);
+var options = {
+    customScopeKey: 'permissions'
+};
+const checkScopes = jwtAuthz([ 'delete:product' ], options);
+// const checkScopes = jwtAuthz([ 'delete:product' ]);
+// const checkScopes = jwtAuthz([ 'update:product' ]);
+
+
 const PORT = 5000;
 mongoose.connect(process.env.ATLAS_URI,
     { useNewUrlParser: true },
@@ -23,6 +51,8 @@ mongoose.connect(process.env.ATLAS_URI,
 });
 //Middleware 
 app.use(bodyParser.json());
+// app.use(express.json());
+// app.use(express.urlencoded());
 
 //For storing cookies for the user.
 app.use(session({
@@ -58,18 +88,38 @@ setTimeout(() => {
     app.get('/api/products/:id', productsController.readProduct);
 
     //Admin Endpoints 
-    app.get('/api/users', adminController.getAdminUsers);
+    app.get('/api/users', checkJwt, checkScopes, adminController.getAdminUsers);
 
-    app.post('/api/products', adminController.createProduct);
-
-
-    app.post('/api/users/createadmin', adminController.createAdmin);
-    app.delete('/api/users/:id', adminController.deleteAdmin);
+    app.post('/api/products', checkJwt, checkScopes, adminController.createProduct);
 
 
-    app.put('/api/products/:id', adminController.updateProduct);
+    app.post('/api/users/createadmin', checkJwt, checkScopes, adminController.createAdmin);
+    app.delete('/api/users/:id', checkJwt, checkScopes, adminController.deleteAdmin);
 
-    app.delete('/api/products/:id', adminController.deleteProduct);
+    // app.put('/api/products/update/:id', userController.updateInventory);
+
+    app.put('/api/products/:id', checkJwt, checkScopes, adminController.updateProduct);
+
+    app.delete('/api/products/:id', checkJwt, checkScopes, adminController.deleteProduct);
+
+    app.post("/api/create-checkout-session", async (req, res) => {
+        const cartDetails = await req.body.cartDetails;
+        console.log(req.body.itemId.cartItems);
+
+        const session = await stripe.checkout.sessions.create({
+          billing_address_collection: 'auto',
+          shipping_address_collection: {
+              allowed_countries: ['US', 'CA'],
+          },
+          payment_method_types: ["card"],
+          line_items: cartDetails,
+          mode: "payment",
+          success_url: "http://localhost:3000/success",
+          cancel_url: "http://localhost:3000/cancel",
+        });
+      
+        res.json({ id: session.id });
+      });
 
 }, 200);
 

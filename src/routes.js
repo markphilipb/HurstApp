@@ -5,6 +5,9 @@ import About from './components/container/About/About';
 import Cart from './components/container/Cart/Cart';
 import ProductPage from './components/container/ProductPage/ProductPage';
 import SigninPage from './components/container/Signin/Signin';
+import ProductForm from './components/container/ProductForm/ProductForm';
+import Success from './components/presentational/Success';
+import Cancel from './components/presentational/Cancel';
 
 export default (
     <Switch>
@@ -14,6 +17,12 @@ export default (
         <Route path='/cart/:_id?' component={Cart} />
         <Route path='/product/:_id' component={ProductPage} />
         <Route path='/signin' component={SigninPage} />
+        <Route path='/productform' component={ProductForm} />
+        <Route path='/success' component={Success} />
+        <Route path='/cancel' component={Cancel} />
+        <Route path='/api/create-checkout-session' />
+
+
         {/* <Route path='/admin' component={Admin} /> */}
     </Switch>
 )
