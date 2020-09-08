@@ -26,28 +26,6 @@ function Cart(props) {
         }
     }, [dispatch, productId, size])
 
-    // line_items: [
-    //     {
-    //       price_data: {
-    //         currency: "usd",
-    //         product_data: {
-    //           name: "T-shirt",
-    //         },
-    //         unit_amount: 2000,
-    //       },
-    //       quantity: 1,
-    //     },
-    //     {
-    //         price_data: {
-    //           currency: "usd",
-    //           product_data: {
-    //             name: "V-shirt",
-    //           },
-    //           unit_amount: 2000,
-    //         },
-    //         quantity: 1,
-    //       },
-    //   ],
 
     const checkoutHandler = async (e) => {
         const stripe = await stripePromise;
@@ -63,15 +41,17 @@ function Cart(props) {
                         name: namep,
                     },
                     unit_amount: price,
+
                 },
                 quantity: 1,
+                // metadata: { productId: prod.product },                        
                 
             }
             ret = [...ret, obj]
         }
 
     // Call your backend to create the Checkout Session
-    
+   
     axios.post('/api/create-checkout-session', {
         cartDetails: ret,
         itemId: cart,

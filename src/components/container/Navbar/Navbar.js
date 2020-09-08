@@ -45,7 +45,7 @@ export class Navbar extends Component {
             <a className="nav-link" href="/about">Contact</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/cart" onClick={() => this.linkFunc('/cart')}>Orders</a>
+            <a className="nav-link" href="/orders" onClick={() => this.linkFunc('/orders')}>Orders</a>
           </li> 
 
           
