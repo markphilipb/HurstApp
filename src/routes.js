@@ -8,7 +8,6 @@ import SigninPage from './components/container/Signin/Signin';
 import ProductForm from './components/container/ProductForm/ProductForm';
 import Success from './components/presentational/Success';
 import Cancel from './components/presentational/Cancel';
-import OrderPage from './components/OrderPage/OrderPage';
 import OrderList from './components/container/OrderList/OrderList';
 
 export default (
@@ -23,11 +22,6 @@ export default (
         <Route path='/success' component={Success} />
         <Route path='/cancel' component={Cancel} />
         <Route path='/orders' component={OrderList} />
-        <Route path='/order/:_id' component={OrderPage} />
         <Route path='/api/create-checkout-session' />
-        {/* <Route path='/stripe/webhook' /> */}
-
-
-        {/* <Route path='/admin' component={Admin} /> */}
     </Switch>
 )

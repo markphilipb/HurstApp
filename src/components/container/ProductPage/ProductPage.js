@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 
 function ProductPage(props) {
     const [product, setProduct] = useState({});
-    // const [qty, setQty] = useState(1);
     const [size, setSize] = useState("S")
 
     useEffect(() => {
@@ -21,10 +20,10 @@ function ProductPage(props) {
         };
     }, [props.match.params._id]);
 
+
     const handleAddToCart = () => {
         props.history.push("/cart/" + props.match.params._id + "?size=" + size);
     }
-
 
 
     return ( 

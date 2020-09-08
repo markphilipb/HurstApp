@@ -27,10 +27,9 @@ function SigninPage(props) {
         };
     }, [props.history, userInfo]);
 
+    
     const submitHandler = (e) => {
         e.preventDefault();
-        // dispatch(signin(email, password)
-        // loginWithRedirect();
     }
 
 

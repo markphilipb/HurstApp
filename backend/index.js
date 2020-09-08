@@ -4,8 +4,6 @@ const session = require('express-session');
 const cors = require('cors');
 
 const adminController = require('./controllers/admin_controller');
-const cloudinaryController = require('./controllers/cloudinary_controller');
-const userController = require('./controllers/user_controller');
 const productsController = require('./controllers/products_controller');
 const orderController = require('./controllers/order_controller');
 
@@ -24,16 +22,12 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY_TEST);
 const endpointSecret = 'whsec_qGLtYSZh7ibIK9Pi74AHs99LpjlsJPan';
 
 const fulfillOrder = (session) => {
-    // TODO: fill me in
     orderController.fulfillOrder(session);
     productsController.decreaseQuantity(session.metadata);
 }
 
 const createOrder = (session, lineItems) => {
-    // TODO: fill me in
     orderController.createOrder(session, lineItems);
-    
-    // console.log("line items", lineItems.data[0].price);
 }
   
 const emailCustomerAboutFailedPayment = (session) => {
@@ -79,18 +73,12 @@ mongoose.connect(process.env.ATLAS_URI,
 
 //Middleware 
 app.use(bodyParser.urlencoded({ extended: false }))
-
-// app.use(bodyParser.json());
 app.use(bodyParser.json({
     verify: (req, res, buf) => {
       req.rawBody = buf
     }
   }))
 app.use(cors());
-// app.use('/api', orderRoutes);
-// app.use(express.json());
-// app.use(express.urlencoded());
-
 //For storing cookies for the user.
 app.use(session({
 
@@ -102,24 +90,10 @@ app.use(session({
     }
 }));
 
+
 //User endpoints 
 setTimeout(() => {
-    app.get('/api/upload', cloudinaryController.upload);
-    //Read the user's session.
-    app.get('/api/user-data', userController.readUserData);
-
-    app.post('/api/user-data/cart', userController.addToCart);
-
-    app.delete('/api/user-data/cart/:id', userController.removeFromCart);
-
-
-    //When user login
-    app.get('/auth/callback', userController.login)
-    //NO NEED FOR A REGISTER SINCE YOUR ARE USING AUTH0.
-    //Just need a login, since you are logging from your social media provider no need to register, only looks if a user already has a account.
-
-    app.post('/api/logout', userController.logout);
-
+  
     app.get('/api/products', productsController.readAllProducts);
 
     app.get('/api/products/:id', productsController.readProduct);
@@ -142,7 +116,6 @@ setTimeout(() => {
     app.post('/api/users/createadmin', checkJwt, checkScopes, adminController.createAdmin);
     app.delete('/api/users/:id', checkJwt, checkScopes, adminController.deleteAdmin);
 
-    // app.put('/api/products/update/:id', userController.updateInventory);
 
     app.put('/api/products/:id', checkJwt, checkScopes, adminController.updateProduct);
 
@@ -198,13 +171,11 @@ setTimeout(() => {
                 session.id,
                 { limit: 5 },
                 function(err, lineItems) {
-                  // asynchronously called
+                    
                   createOrder(session, lineItems);
-                // console.log(lineItems);
 
                 }
               );
-            //   createOrder(session);
         
               // Check if the order is paid (e.g., from a card payment)
               //
