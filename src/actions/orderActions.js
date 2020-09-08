@@ -19,7 +19,6 @@ const createOrder = (order) => async (dispatch, getState) => {
 const detailsOrder = (orderId) => async (dispatch, getState) => {
   try {
     dispatch({ type: ORDER_DETAILS_REQUEST, payload: orderId });
-    // const { userSignin: { userInfo } } = getState();
     const { data } = await Axios.get("/api/orders/" + orderId);
     dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data })
   } catch (error) {

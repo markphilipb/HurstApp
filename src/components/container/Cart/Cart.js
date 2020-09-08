@@ -14,11 +14,11 @@ function Cart(props) {
     const stripePromise = loadStripe('pk_test_51HNPzjEPPZ2eZwStpMCckkhojI4KW8ZB3T8ZSTlhVkchmosNaxbWSS14XTXbrykwVSuiXHXcqGUhSLhjR4tKicDW00ppx7MBIt');
     const dispatch = useDispatch();
 
+
     const removeFromCartHandler = (productId) => {
         dispatch(removeFromCart(productId));
     }
 
-   
 
     useEffect(() => {
         if (productId) {
@@ -30,6 +30,7 @@ function Cart(props) {
     const checkoutHandler = async (e) => {
         const stripe = await stripePromise;
         let ret = [];
+        
         for(let i = 0; i < cart.cartItems.length; i++){ 
             const prod =  cart.cartItems[i];
             let namep = prod.name;
@@ -43,11 +44,11 @@ function Cart(props) {
                     unit_amount: price,
 
                 },
-                quantity: 1,
-                // metadata: { productId: prod.product },                        
-                
+                quantity: 1,                
             }
+
             ret = [...ret, obj]
+
         }
 
     // Call your backend to create the Checkout Session

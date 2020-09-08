@@ -19,46 +19,45 @@ function ProductForm(props) {
   const [productList, setProductList] = useState([]);
 
   const { getAccessTokenSilently } = useAuth0();
-//   const { products } = productList;
-useEffect(() => {
+  
+  useEffect(() => {
     axios.get('/api/products').then(res => {
-        console.log('res.data products-----------', res.data);
-       setProductList(res.data);
+      console.log('res.data products-----------', res.data);
+      setProductList(res.data);
     }).catch(err => console.log('Read all products Error-------', err));
   }, [])
 
 
-  console.log(productList);
-
-  const updateClick = async (e) =>  {
+  const updateClick = async (e) => {
     const token = await getAccessTokenSilently();
 
-      setIsUpdate(false);
-      e.preventDefault();
+    setIsUpdate(false);
+    e.preventDefault();
     axios.put('/api/products/' + id, {
-        _id: id,
-        name: name,
-        price: price,
-        image: image,
-        countInStock: countInStock,
-        countSmall: countSmall,
-        countMedium: countMedium,
-        countLarge: countLarge,
-        countXL: countXL,
-        
-      }, {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        }
-      })
+      _id: id,
+      name: name,
+      price: price,
+      image: image,
+      countInStock: countInStock,
+      countSmall: countSmall,
+      countMedium: countMedium,
+      countLarge: countLarge,
+      countXL: countXL,
+
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      }
+    })
       .then((response) => {
         console.log(response);
       }, (error) => {
         console.log(error);
       });
-      setModalVisible(false);
-      window.location.reload(false);
+    setModalVisible(false);
+    window.location.reload(false);
   }
+
 
   const openModalUpdate = (product) => {
     setIsUpdate(true);
@@ -92,26 +91,26 @@ useEffect(() => {
     const token = await getAccessTokenSilently();
     e.preventDefault();
     axios.post('/api/products', {
-        _id: id,
-        name: name,
-        price: price,
-        image: image,
-        countInStock: countInStock,
-        countSmall: countSmall,
-        countMedium: countMedium,
-        countLarge: countLarge,
-        countXL: countXL
-      }, {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          }
-      })
+      _id: id,
+      name: name,
+      price: price,
+      image: image,
+      countInStock: countInStock,
+      countSmall: countSmall,
+      countMedium: countMedium,
+      countLarge: countLarge,
+      countXL: countXL
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      }
+    })
       .then((response) => {
         console.log(response);
       }, (error) => {
         console.log(error);
       });
-      window.location.reload(false);
+    window.location.reload(false);
   };
 
   const deleteHandler = async (product) => {
@@ -121,41 +120,36 @@ useEffect(() => {
         Authorization: 'Bearer ' + token,
       },
     }
-    
+
     axios.delete('/api/products/' + product._id, body)
       .then(res => {
-        
+
       })
-    
-      window.location.reload(false);
+
+    window.location.reload(false);
   };
 
   const uploadFileHandler = async e => {
-        const files = e.target.files
-        const data = new FormData()
-        data.append('file', files[0])
-        data.append('upload_preset', 'hurstImages')
-        // setLoading(true)
-        const res = await fetch(
-          'https://api.cloudinary.com/v1_1/dfpkblfrw/image/upload',
-          {
-            method: 'POST',
-            body: data
-          }
-        )
-        const file = await res.json()
-    
-        setImage(file.secure_url)
-        console.log(file.secure_url);
-        // setLoading(false)    
+    const files = e.target.files
+    const data = new FormData()
+    data.append('file', files[0])
+    data.append('upload_preset', 'hurstImages')
+    // setLoading(true)
+    const res = await fetch(
+      'https://api.cloudinary.com/v1_1/dfpkblfrw/image/upload',
+      {
+        method: 'POST',
+        body: data
+      }
+    )
+    const file = await res.json()
+
+    setImage(file.secure_url)
+    console.log(file.secure_url);
+    // setLoading(false)    
   };
 
   return (
-    // <div className="content content-margined">
-    //   <div className="product-header">
-    //     <h3>Products</h3>
-        
-    //   </div>
     <div className="content content-margined">
       <div className="product-header">
         <h3>Products</h3>
@@ -197,11 +191,11 @@ useEffect(() => {
               </li>
               <li>
                 <label htmlFor="image">Image</label>
-                
+
                 <input type="file" onChange={uploadFileHandler}></input>
                 {/* {uploading && <div>Uploading...</div>} */}
               </li>
-              
+
               <li>
                 <label htmlFor="countInStock">CountInStock</label>
                 <input
@@ -252,7 +246,7 @@ useEffect(() => {
                   onChange={(e) => setCountXL(e.target.value)}
                 ></input>
               </li>
-              
+
               <li>
                 {/* <button type="submit" className="button primary">
                   {id ? 'Update' : 'Create'}
@@ -271,46 +265,46 @@ useEffect(() => {
             </ul>
           </form>
         </div>
-   )}      
-  {!modalVisible && (
-      <div className="product-list">
-        <table className="table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {productList.map((product) => (
-              <tr key={product._id}>
-                <td>{product._id}</td>
-                <td>{product.name}</td>
-                <td>{product.price}</td>
-                <td>
-                   <button className="button" onClick={() => openModalUpdate(product)}>
-                    Edit
-                  </button>{' '} 
-                   <button
-                    className="button"
-                    onClick={() => deleteHandler(product)}
-                  >
-                    Delete
-                  </button> 
-                </td>
+      )}
+      {!modalVisible && (
+        <div className="product-list">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      )}  
+            </thead>
+            <tbody>
+              {productList.map((product) => (
+                <tr key={product._id}>
+                  <td>{product._id}</td>
+                  <td>{product.name}</td>
+                  <td>{product.price}</td>
+                  <td>
+                    <button className="button" onClick={() => openModalUpdate(product)}>
+                      Edit
+                  </button>{' '}
+                    <button
+                      className="button"
+                      onClick={() => deleteHandler(product)}
+                    >
+                      Delete
+                  </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
-    
+
   );
 }
 export default withAuthenticationRequired(ProductForm, {
-    // Show a message while the user waits to be redirected to the login page.
-    onRedirecting: () => (<div>Redirecting you to the login page...</div>)
-  });
+  // Show a message while the user waits to be redirected to the login page.
+  onRedirecting: () => (<div>Redirecting you to the login page...</div>)
+});

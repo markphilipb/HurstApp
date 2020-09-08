@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCart } from '../../actions/cartActions';
 
 
 function Success(props) {
   const cart = useSelector(state => state.cart);
-  const { cartItems} = cart;
-  const [body, setBody] = useState({});
   const dispatch = useDispatch();
 
-  console.log(cart.cartItems);
-
   useEffect(() => {
-    console.log("cart: ", cart.cartItems);
-    cart.cartItems.map((item) => {
+    // cart.cartItems.map((item) => {
+    //   dispatch(removeFromCart(item.product));
+    // });
+    cart.cartItems.forEach(item => {
       dispatch(removeFromCart(item.product));
     }); 
-}, [])
+}, [cart.cartItems, dispatch])
 
   return (
     <div>

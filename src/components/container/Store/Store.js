@@ -34,7 +34,6 @@ export class Store extends Component {
                         <a href="/productform">New Product</a>
                     </div> }
                     <div className='row'>
-                        {/* If hte products have data return products else return nothing using terinary statement */}
                         {products.length ? products.map(product => <ProductCard key={product._id} {...product} />) : null}
                     </div>
                 </div>
