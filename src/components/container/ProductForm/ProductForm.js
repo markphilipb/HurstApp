@@ -19,6 +19,7 @@ function ProductForm(props) {
   const [productList, setProductList] = useState([]);
 
   const { getAccessTokenSilently } = useAuth0();
+
   
   useEffect(() => {
     axios.get('/api/products').then(res => {
