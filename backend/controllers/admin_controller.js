@@ -1,17 +1,8 @@
 const Product = require('../models/product');
-const User  = require('../models/user');
 
 
 module.exports = {
-
-    getAdminUsers(req, res) {
-        User.find().exec((err, users) => {
-            if(err) console.log('Find Admin Users Error---------------', err);
-            res.status(200).json({users});
-        })
-    },
-    
-    
+        
     createProduct(req, res) {
         const { name, description, price, image, countInStock, countSmall, countMedium, countLarge, countXL } = req.body;
         let newProduct = new Product({
@@ -63,27 +54,4 @@ module.exports = {
     },
 
 
-    createAdmin(req, res) {
-        const { name, email, password, isAdmin } = req.body;
-
-        let newAdmin = new User({
-            name,
-            email,
-            password,
-            isAdmin,
-        });
-
-        newAdmin.save();
-        res.status(200).json({admin: newAdmin});
-    },
-
-
-    deleteAdmin(req, res) {
-        const { id } = req.params;
-        
-        User.deleteOne({_id: id}).exec((err, user) => {
-            if(err) console.log('Delete One Error-----------------', err)
-            res.status(200).json({user});
-        });
-    }, 
 }

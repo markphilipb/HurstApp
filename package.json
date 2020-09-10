@@ -1,5 +1,6 @@
 {
   "name": "hurstapp",
+  "proxy": "http://[::1]:5000",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -35,7 +36,6 @@
     "now-start": "node backend/index.js",
     "deploy": "now --public --dotenv=.env.prod -d"
   },
-  "main": "backend/",
   "now": {
     "alias": "ali-store"
   },

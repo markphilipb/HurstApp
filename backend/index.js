@@ -108,14 +108,7 @@ setTimeout(() => {
 
 
     //Admin Endpoints 
-    app.get('/api/users', checkJwt, checkScopes, adminController.getAdminUsers);
-
     app.post('/api/products', checkJwt, checkScopes, adminController.createProduct);
-
-
-    app.post('/api/users/createadmin', checkJwt, checkScopes, adminController.createAdmin);
-    app.delete('/api/users/:id', checkJwt, checkScopes, adminController.deleteAdmin);
-
 
     app.put('/api/products/:id', checkJwt, checkScopes, adminController.updateProduct);
 
