@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './ProductForm.css';
 import axios from 'axios';
 import { withAuthenticationRequired, useAuth0 } from '@auth0/auth0-react';
 
@@ -152,18 +153,17 @@ function ProductForm(props) {
 
   return (
     <div className="content content-margined">
-      <div className="product-header">
-        <h3>Products</h3>
-        {!modalVisible && <button className="button primary" onClick={() => openModalCreate({})}>
+      <div>
+        {!modalVisible && <button className="button btn btn-create btn-primary style-button font-style-create" onClick={() => openModalCreate({})}>
           Create Product
         </button>}
       </div>
       {modalVisible && (
         <div className="form">
           <form onSubmit={submitHandler}>
-            <ul className="form-container">
+            <ul className="form-container font-style">
               <li>
-                {isUpdate ? <h2>Update Product</h2> : <h2>Create Product</h2>}
+                {isUpdate ? <h2 className="header-top font-style">Update Product</h2> : <h2 className="header-top font-style">Create Product</h2>}
               </li>
               {/* <li>
                 {loadingSave && <div>Loading...</div>}
@@ -200,6 +200,7 @@ function ProductForm(props) {
               <li>
                 <label htmlFor="countInStock">CountInStock</label>
                 <input
+                className="input-text"
                   type="text"
                   name="countInStock"
                   value={countInStock || ''}
@@ -252,13 +253,13 @@ function ProductForm(props) {
                 {/* <button type="submit" className="button primary">
                   {id ? 'Update' : 'Create'}
                 </button> */}
-                {isUpdate ? <button onClick={(e) => updateClick(e)} className="button primary">Update</button> : <button type="submit" className="button primary">Create</button>}
+                {isUpdate ? <button onClick={(e) => updateClick(e)} className="button btn btn-primary style-button font-style-action">Update</button> : <button type="submit" className="button btn btn-primary style-button font-style-action">Create</button>}
               </li>
               <li>
                 <button
                   type="button"
                   onClick={() => setModalVisible(false)}
-                  className="button secondary"
+                  className="button btn btn-create style-button font-style-create"
                 >
                   Back
                 </button>
@@ -269,7 +270,7 @@ function ProductForm(props) {
       )}
       {!modalVisible && (
         <div className="product-list">
-          <table className="table">
+          <table className="table font-style">
             <thead>
               <tr>
                 <th>ID</th>
@@ -285,11 +286,11 @@ function ProductForm(props) {
                   <td>{product.name}</td>
                   <td>{product.price}</td>
                   <td>
-                    <button className="button" onClick={() => openModalUpdate(product)}>
+                    <button className="button btn btn-info style-button font-style-create info-btn" onClick={() => openModalUpdate(product)}>
                       Edit
                   </button>{' '}
                     <button
-                      className="button"
+                      className="button btn btn-danger style-button font-style-create delete-btn"
                       onClick={() => deleteHandler(product)}
                     >
                       Delete

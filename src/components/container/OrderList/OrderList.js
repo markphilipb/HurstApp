@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './OrderList.css';
 import axios from 'axios';
 import { withAuthenticationRequired, useAuth0 } from '@auth0/auth0-react';
 
@@ -36,7 +37,7 @@ function ProductForm(props) {
  
       <div className="product-list">
         <table className="table">
-          <thead>
+          <thead className="product-table">
             <tr>
               <th>ID</th>
               <th>Name</th>
@@ -51,7 +52,7 @@ function ProductForm(props) {
               <tr key={order._id}>
                 <td>{order._id}</td>
                 <td>{order.shipping.name + "\n"}</td>
-                <td>{order.shipping.name + "\n" + order.shipping.address + "\n" + order.shipping.city + ", " + order.shipping.state + ", " + order.shipping.postalCode + "\n" + order.shipping.country}</td>
+                <td className="shipping">{order.shipping.name + "\n" + order.shipping.address + "\n" + order.shipping.city + ", " + order.shipping.state + ", " + order.shipping.postalCode + "\n" + order.shipping.country}</td>
                 <td>{order.totalPrice / 100}</td>
                 <td>{order.isPaid}</td>
                 <td>
@@ -59,7 +60,7 @@ function ProductForm(props) {
                     Edit
                   </button>{' '}  */}
                    <button
-                    className="button"
+                    className="btn btn-danger"
                     onClick={() => deleteHandler(order)}
                   >
                     Delete
