@@ -26,10 +26,13 @@ module.exports = {
     
     decreaseQuantity(metadata) {
         Object.keys(metadata).map(function(key, index) {
-
+            console.log("metaData: ", metadata);
             const sp = metadata[key].split(',');
+        
             const id = sp[0];
             const itemSize = sp[1];
+            console.log("id ", id);
+            console.log("size: ", itemSize);
 
             Product.findById(id).exec((err, product) => {
                 if(err) console.log('Updated Product-----------------', err);

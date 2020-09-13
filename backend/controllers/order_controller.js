@@ -52,7 +52,7 @@ module.exports = {
         }
 
         const shipping = {
-            address: "line 1: " + session.shipping.address.line1 + "line 2: " + session.shipping.address.line2,
+            address: "Line 1: " + session.shipping.address.line1 + " Line 2: " + session.shipping.address.line2,
             city: session.shipping.address.city,
             postalCode: session.shipping.address.postal_code,
             country: session.shipping.address.country,

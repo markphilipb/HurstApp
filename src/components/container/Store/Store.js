@@ -31,7 +31,7 @@ export class Store extends Component {
             return (
                 <div className='home container'>
                     { isAuthenticated && <div>
-                        <a href="/productform">New Product</a>
+                        <a className="btn btn-primary new-product-btn" href="/productform">New Product</a>
                     </div> }
                     <div className='row'>
                         {products.length ? products.map(product => <ProductCard key={product._id} {...product} />) : null}
