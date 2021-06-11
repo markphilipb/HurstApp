@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import './ProductPage.css';
-import { Link } from 'react-router-dom';
 
 
 function ProductPage(props) {
@@ -71,23 +70,28 @@ function ProductPage(props) {
         //     </div>
 
         // </div>
-        <div>
+        <div>      
+            
+            {/* <div className="back-btn">
+        <Link className="btn btn-secondary" to="/store">Back</Link>
+    </div> */}
+            <div className="site-section mt-5 section">
+            {/* <div className="section"> */}
 
-            <div class="site-section mt-5">
-                <div class="container">
-                    <div class="row">
-                        <div>
-                            <Link to="/store">Back</Link>
+            
+                <div className="container">
+                
+                    <div className="row">
+                    
+                        <div className="col-lg-6">
+                            <img src={product.image} alt="product_image" className="img-fluid"></img>
+
                         </div>
-                        <div class="col-lg-6">
-                            <img src={product.image} alt="product_image" class="img-fluid"></img>
+                        <div className="col-lg-5 ml-auto">
+                            <h2 className="item-name">{product.name}</h2>
 
-                        </div>
-                        <div class="col-lg-5 ml-auto">
-                            <h2 class="item-name">{product.name}</h2>
-
-                            <div class="mb-5">
-                                <div class="input-group mb-3">
+                            <div className="mb-5">
+                                <div className="input-group mb-3">
                                     <div className="details-action">
                                         <ul className="select-size">
                                             <li>
