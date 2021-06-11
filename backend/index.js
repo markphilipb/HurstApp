@@ -18,8 +18,8 @@ const jwksRsa = require('jwks-rsa');
 
 //stripe -------------------------------------------------------------------------
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY_TEST);
-const endpointSecret = 'whsec_qGLtYSZh7ibIK9Pi74AHs99LpjlsJPan';
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY_TEST);;
+const endpointSecret = require("stripe")(process.env.STRIPE_ENDPOINT_SECRET);
 
 const fulfillOrder = (session) => {
     orderController.fulfillOrder(session);
