@@ -81,30 +81,26 @@ function Cart(props) {
         <div className="cart-list">
             <ul className="cart-list-container">
                 <li>
-                    <h3>Shopping Cart</h3>
-                    <div>Price</div>
+                    <h3 className="font-style">Shopping Cart</h3>
+                    <div className="font-style">Price</div>
                 </li>
                 {
                     cartItems.length === 0 ?
-                        <div>
+                        <div className="font-style cart-empty">
                             Cart Empty
                         </div>
                         :
                         cartItems.map(item =>
-                            <div key={item.product}>
-                                <div className="cart-image">
-                                    <img src={item.image} alt="product pic" />
+                            <div className="cart-item" key={item.product}>
+                                <div className="container">
+                                    <img className="cart-image" src={item.image} alt="product pic" />
                                 </div>
-                                <div className="cart-name">
-                                    <div>
-                                        <Link to={"/product/" + item.product}>{item.name}</Link>
+                                <div >
+                                    <div className="cart-name">
+                                        <Link className="text-color" to={"/product/" + item.product}>{item.name}</Link>
                                     </div>
-                                    <div>
-                                        size:
-                                        
-                                        {/* <select value={item.size} onChange={(e) => dispatch(addToCart(item.product, e.target.value))}> */}
-                                        {/* <select value={size} onChange={(e) => setSize(e.target.value)}> */}
-                                        <select value={item.size} onChange={(e) => dispatch(addToCart(item.product, e.target.value))}>
+                                    <div className="side">
+                                        Size: <select className="select-value" value={item.size} onChange={(e) => dispatch(addToCart(item.product, e.target.value))}>
                                             {item.countSmall>0 ? <option>S</option>
                                             : <option>Out of stock!</option>}
                                             {item.countMedium>0 ? <option>M</option>
@@ -114,12 +110,13 @@ function Cart(props) {
                                             {item.countXL>0 ? <option>XL</option>
                                             : <option>Out of stock!</option>}
                                         </select>
-                                        <button type="button" className="button" onClick={() => removeFromCartHandler(item.product)}>Remove</button>
-                                    </div>
-                                </div>
-                                <div className="cart-price">
+                                        <button type="button" className="button btn btn-danger style-button" onClick={() => removeFromCartHandler(item.product)}>Remove</button>
+                                        <div className="cart-price">
                                     ${item.price}
                                 </div>
+                                    </div>
+                                </div>
+                                
                             </div>
                         )
                 }
@@ -127,12 +124,12 @@ function Cart(props) {
 
         </div>
         <div className="cart-action">
-                <h3>
+                <h3 className="font-style proceed">
                     Subtotal ( {cartItems.length} items)
                 :
                 $ {cartItems.reduce((a, c) => a + c.price, 0)}
                 </h3>
-                <button onClick={checkoutHandler} className="button primary" disabled={cartItems.length===0}>Proceed to checkout</button>
+                <button type="button" onClick={checkoutHandler} className="button btn btn-dark style-button proceed-button" disabled={cartItems.length===0}>Proceed to checkout</button>
         </div>
     </div>
 }

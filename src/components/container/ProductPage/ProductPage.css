@@ -9,3 +9,39 @@
     padding: 0;
 }
 
+.item-name {
+    margin-top: 50px;
+    text-transform: uppercase;
+    text-align:left;
+    font-size: 2rem;
+    letter-spacing: .05rem;
+    font-weight: 400;
+    text-decoration: none !important;
+    font-family: "Cinzel";
+    color: #000;
+}
+
+.select-size {
+    margin-top: 5rem;
+    text-align:left;
+    letter-spacing: .05rem;
+    font-weight: 400;
+    text-decoration: none !important;
+    font-family: "Cinzel";
+    color: #000;
+}
+
+.add-cart {
+    margin-top: 1rem;
+    
+}
+
+.back-btn {
+   text-align: left;
+   margin-left: 20px;
+   margin-top: 60px;
+}
+
+.section {
+    padding: 3rem 0;
+}

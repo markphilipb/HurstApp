@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     margin: 1rem;
     align-items: flex-start;
+    margin-top: 75px;
   }
   .cart-list {
     flex: 3 1 60rem;
@@ -17,6 +18,7 @@
     padding: 0;
     list-style-type: none;
     padding: 1rem;
+    
   }
   .cart-list-container li {
     display: flex;
@@ -37,15 +39,95 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    
   }
+
+.cart-item {
+  border-bottom: 0.1rem #c0c0c0 solid;
+
+}
+
+/* resize images */
+
+.container {
+  text-align: left;
+}
+
   .cart-image {
+    margin-top: 20px;
     flex: 1 1;
+    width: 100px;
+    height: auto;
+
   }
   .cart-name {
+    margin-top: 10px;
+    margin-left: 20px;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: .05rem;
+    font-weight: 400;
+    text-decoration: none !important;
+    font-family: "Cinzel";
+    color: #000;
+    text-align: left;
     flex: 8 1;
   }
+  .text-color {
+    color: #000;
+
+  }
   .cart-price {
-    flex: 1 1;
-    font-size: 2.5rem;
+    /* flex: 1 1; */
+    font-size: 1.5rem;
     text-align: right;
+    margin-bottom: 1rem;
+    margin-left: 10%;
+  }
+
+  .side {
+    margin-left: 20px;
+    text-align: left;
+    font-size: .8rem;
+    letter-spacing: .05rem;
+    font-weight: 400;
+    text-decoration: none !important;
+    font-family: "Cinzel";
+    color: #000;
+  }
+
+  .select-value {
+    margin-right: 2%;
+    width: 60px;
+    height: 40px;
+    
+  }
+
+  .style-button {
+    margin-left: 20px
+  }
+
+  .font-style {
+    letter-spacing: .05rem;
+    font-weight: 400;
+    text-decoration: none !important;
+    font-family: "Cinzel";
+    color: #000;
+  }
+  
+  .cart-empty {
+    font-size: 1rem;
+  }
+
+  .proceed {
+    font-size: 1.5rem;
+    
+  }
+
+  .proceed-button {
+    letter-spacing: .05rem;
+    font-weight: 400;
+    text-decoration: none !important;
+    font-family: "Cinzel";
+    color: rgb(255, 255, 255);
   }

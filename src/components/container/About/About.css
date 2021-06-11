@@ -1,3 +1,15 @@
+.about-container {
+    margin-right: 50%;
+}
+
 .about-info.container {
     margin: 10%;
+
 }
+
+.font-nice {
+    margin-right: 30%;
+    font-family: "Courier New", Courier, monospace;
+    color: #000;
+}
+
