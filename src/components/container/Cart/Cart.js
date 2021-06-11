@@ -100,11 +100,7 @@ function Cart(props) {
                                         <Link className="text-color" to={"/product/" + item.product}>{item.name}</Link>
                                     </div>
                                     <div className="side">
-                                        Size: 
-                                        
-                                        {/* <select value={item.size} onChange={(e) => dispatch(addToCart(item.product, e.target.value))}> */}
-                                        {/* <select value={size} onChange={(e) => setSize(e.target.value)}> */}
-                                        <select className="select-value" value={item.size} onChange={(e) => dispatch(addToCart(item.product, e.target.value))}>
+                                        Size: <select className="select-value" value={item.size} onChange={(e) => dispatch(addToCart(item.product, e.target.value))}>
                                             {item.countSmall>0 ? <option>S</option>
                                             : <option>Out of stock!</option>}
                                             {item.countMedium>0 ? <option>M</option>
@@ -114,7 +110,7 @@ function Cart(props) {
                                             {item.countXL>0 ? <option>XL</option>
                                             : <option>Out of stock!</option>}
                                         </select>
-                                        <button type="button" className="button btn btn-dark style-button" onClick={() => removeFromCartHandler(item.product)}>Remove</button>
+                                        <button type="button" className="button btn btn-danger style-button" onClick={() => removeFromCartHandler(item.product)}>Remove</button>
                                         <div className="cart-price">
                                     ${item.price}
                                 </div>
@@ -133,7 +129,7 @@ function Cart(props) {
                 :
                 $ {cartItems.reduce((a, c) => a + c.price, 0)}
                 </h3>
-                <button type="button" onClick={checkoutHandler} className="button btn btn-primary style-button proceed-button" disabled={cartItems.length===0}>Proceed to checkout</button>
+                <button type="button" onClick={checkoutHandler} className="button btn btn-dark style-button proceed-button" disabled={cartItems.length===0}>Proceed to checkout</button>
         </div>
     </div>
 }
