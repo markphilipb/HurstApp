@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 const ProductCard = (props) => {
   const { _id, name, price, image,
-    //  description
      } = props;
 
   return (
