@@ -22,3 +22,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+bfg-1.14.0.jar
+keys.txt
+
